@@ -3,12 +3,21 @@ import { RoverInterpreteur } from "./interpreteurs/RoverInterpreteur";
 import { MissionController } from "./classes/MissionController";
 import { Direction } from "./enums/Direction";
 import { Planete } from "./classes/Planete";
-import { Coordonates } from "./classes/Coordonates";
+import { Coordinates } from "./classes/Coordinates";
 import { Position } from "./classes/Position";
 import readline from "readline";
+import { ObstaclesBuilder } from "./builder/ObstaclesBuilder";
 
 const planete = new Planete(10, 10);
-const coordonneesRover = new Coordonates(0, 0);
+const obstacles = new ObstaclesBuilder()
+    .withPlanete(planete)
+    .howManyObstacles(5)
+    .build();
+
+planete.addObstacles(obstacles);
+console.log(planete.obstacles);
+
+const coordonneesRover = new Coordinates(0, 0);
 const positionRover = new Position(coordonneesRover, Direction.Est);
 const rover = new Rover(positionRover, planete);
 const roverInterpreteur = new RoverInterpreteur(rover);
@@ -50,8 +59,8 @@ function demanderCommande() {
 
             // Afficher l'état actuel du Rover
             console.log(
-                `Position actuelle : ${rover.getCoordonnees().x}, ${
-                    rover.getCoordonnees().y
+                `Position actuelle : ${rover.getCoordinates().x}, ${
+                    rover.getCoordinates().y
                 }`
             );
             console.log(`Direction actuelle : ${rover.getDirection()}`);
@@ -64,3 +73,12 @@ function demanderCommande() {
 
 // Démarrer la boucle en demandant la première commande
 demanderCommande();
+
+// import {ObstaclesBuilder} from "./builder/ObstaclesBuilder";
+// import {Planete} from "./classes/Planete";
+//
+// const planete = new Planete(10,10);
+// const obstacles = new ObstaclesBuilder().withPlanete(planete).howManyObstacles(5).build();
+// planete.addObstacles(obstacles);
+//
+// console.log(planete.obstacles)

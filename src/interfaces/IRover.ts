@@ -1,5 +1,5 @@
 import { Direction } from "../enums/Direction";
-import { Coordonates } from "../classes/Coordonates";
+import { Coordinates } from "../classes/Coordinates";
 import { Position } from "../classes/Position";
 import { Planete } from "../classes/Planete";
 
@@ -11,6 +11,8 @@ export interface IRover {
     reculer(): void;
     tournerGauche(): void;
     tournerDroite(): void;
-    getCoordonnees(): Coordonates;
+    getCoordinates(): Coordinates;
     getDirection(): Direction;
+    checkObstacleForward(): boolean;
+    checkObstacleBackward(): boolean;
 }

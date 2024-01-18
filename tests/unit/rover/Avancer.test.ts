@@ -11,7 +11,7 @@ describe("Le rover peut AVANCER", () => {
         roverTest.avancer();
 
         // Comparaison avec le Rover de référence
-        expect(roverTest.getCoordonnees()).toStrictEqual(roverRef.getCoordonnees());
+        expect(roverTest.getCoordinates()).toStrictEqual(roverRef.getCoordinates());
         expect(roverTest.getDirection()).toBe(roverRef.getDirection());
     });
 
@@ -24,7 +24,7 @@ describe("Le rover peut AVANCER", () => {
         roverTest.avancer();
 
         // Comparaison avec le Rover de référence
-        expect(roverTest.getCoordonnees()).toStrictEqual(roverRef.getCoordonnees());
+        expect(roverTest.getCoordinates()).toStrictEqual(roverRef.getCoordinates());
         expect(roverTest.getDirection()).toBe(roverRef.getDirection());
     });
 
@@ -37,7 +37,7 @@ describe("Le rover peut AVANCER", () => {
         roverTest.avancer();
 
         // Comparaison avec le Rover de référence
-        expect(roverTest.getCoordonnees()).toStrictEqual(roverRef.getCoordonnees());
+        expect(roverTest.getCoordinates()).toStrictEqual(roverRef.getCoordinates());
         expect(roverTest.getDirection()).toBe(roverRef.getDirection());
     });
 
@@ -50,7 +50,7 @@ describe("Le rover peut AVANCER", () => {
         roverTest.avancer();
 
         // Comparaison avec le Rover de référence
-        expect(roverTest.getCoordonnees()).toStrictEqual(roverRef.getCoordonnees());
+        expect(roverTest.getCoordinates()).toStrictEqual(roverRef.getCoordinates());
         expect(roverTest.getDirection()).toBe(roverRef.getDirection());
     })
 })

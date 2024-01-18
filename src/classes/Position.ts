@@ -1,13 +1,13 @@
 import { IPosition } from "../interfaces/IPosition";
-import { Coordonates } from "./Coordonates";
+import { Coordinates } from "./Coordinates";
 import { Direction } from "../enums/Direction";
 
 export class Position implements IPosition {
-    coordonates: Coordonates;
+    coordinates: Coordinates;
     direction: Direction;
 
-    constructor(coordonnees: Coordonates, direction: Direction) {
-        this.coordonates = coordonnees;
+    constructor(coordinates: Coordinates, direction: Direction) {
+        this.coordinates = coordinates;
         this.direction = direction;
     }
 }
