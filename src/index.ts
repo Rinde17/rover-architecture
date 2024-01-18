@@ -1,6 +1,5 @@
 import { Rover } from "./classes/Rover";
 import { RoverInterpreteur } from "./interpreteurs/RoverInterpreteur";
-import { MissionController } from "./classes/MissionController";
 import { Direction } from "./enums/Direction";
 import { Planete } from "./classes/Planete";
 import { Coordinates } from "./classes/Coordinates";
@@ -21,7 +20,6 @@ const coordonneesRover = new Coordinates(0, 0);
 const positionRover = new Position(coordonneesRover, Direction.Est);
 const rover = new Rover(positionRover, planete);
 const roverInterpreteur = new RoverInterpreteur(rover);
-const missionController = new MissionController(roverInterpreteur);
 
 const rl = readline.createInterface({
     input: process.stdin,
@@ -38,16 +36,16 @@ function demanderCommande() {
 
             switch (commandeMinuscule) {
                 case "z":
-                    missionController.envoyerCommandeAuRover("avancer");
+                    roverInterpreteur.executerCommande("avancer");
                     break;
                 case "s":
-                    missionController.envoyerCommandeAuRover("reculer");
+                    roverInterpreteur.executerCommande("reculer");
                     break;
                 case "q":
-                    missionController.envoyerCommandeAuRover("gauche");
+                    roverInterpreteur.executerCommande("gauche");
                     break;
                 case "d":
-                    missionController.envoyerCommandeAuRover("droite");
+                    roverInterpreteur.executerCommande("droite");
                     break;
                 case "9":
                     console.log("Le programme est terminé.");
@@ -73,12 +71,3 @@ function demanderCommande() {
 
 // Démarrer la boucle en demandant la première commande
 demanderCommande();
-
-// import {ObstaclesBuilder} from "./builder/ObstaclesBuilder";
-// import {Planete} from "./classes/Planete";
-//
-// const planete = new Planete(10,10);
-// const obstacles = new ObstaclesBuilder().withPlanete(planete).howManyObstacles(5).build();
-// planete.addObstacles(obstacles);
-//
-// console.log(planete.obstacles)
