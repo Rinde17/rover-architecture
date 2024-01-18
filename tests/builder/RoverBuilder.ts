@@ -1,8 +1,8 @@
-import { Planete } from "../classes/Planete";
-import { Position } from "../classes/Position";
-import { Coordonates } from "../classes/Coordonates";
-import { Direction } from "../enums/Direction";
-import { Rover } from "../classes/Rover";
+import { Planete } from "../../src/classes/Planete";
+import { Position } from "../../src/classes/Position";
+import { Coordonates } from "../../src/classes/Coordonates";
+import { Direction } from "../../src/enums/Direction";
+import { Rover } from "../../src/classes/Rover";
 
 export class RoverBuilder {
     position: Position = new Position(new Coordonates(0,0), Direction.Nord);

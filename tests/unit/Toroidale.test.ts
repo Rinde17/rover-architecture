@@ -1,5 +1,5 @@
-import {Direction} from "../src/enums/Direction";
-import {RoverBuilder} from "../src/builder/RoverBuilder";
+import {Direction} from "../../src/enums/Direction";
+import {RoverBuilder} from "../builder/RoverBuilder";
 
 describe("La Planete est TOROIDALE", () => {
     test("TOROIDALE si le rover en (0,9) direction NORD passe en (0,0) quand il avance (Sur une planète 10x10)", () => {
