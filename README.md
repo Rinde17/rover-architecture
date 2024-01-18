@@ -48,7 +48,7 @@ Pré-requis:
 
 _( Il est recommandé de cloner avec la méthode SSH )_
 
-`git clone git@github.com:BastienBenech/architecture-logicielle.git`
+`git clone git@github.com:Rinde17/rover-architecture.git`
 
 **Installer les dépendances**
 
