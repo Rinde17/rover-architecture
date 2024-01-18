@@ -1,28 +1,12 @@
-// import io from 'socket.io-client';
-// import {MissionControllerSocketIO} from "./classes/MissionControllerSocketIO";
-// import {RoverInterpreteur} from "./interpreteurs/RoverInterpreteur";
-// import { rover } from "./serverRover";
-//
-// const socketClient = io();
-//
-// const roverInterpreteur = new RoverInterpreteur(rover);
-// const missionController = new MissionControllerSocketIO(roverInterpreteur, socketClient);
-//
-// missionController.envoyerCommandeAuRover("avancer");
-
 import { io } from 'socket.io-client';
 import {Planete} from "./classes/Planete";
 import {Coordonates} from "./classes/Coordonates";
 import {Position} from "./classes/Position";
 import {Direction} from "./enums/Direction";
 import {Rover} from "./classes/Rover";
-import {RoverInterpreteur} from "./interpreteurs/RoverInterpreteur";
-import {MissionController} from "./classes/MissionController";
-import {response} from "express";
+import readline from 'readline';
 
 const socket = io('http://localhost:3000');
-
-const readline = require('readline');
 
 const rl = readline.createInterface({
     input: process.stdin,
