@@ -2,7 +2,7 @@
 
 ![Mover rover simulator illustration](Mars-rover-simulator-illustration.jpg)
 
-Cette application est un mini-jeu qui simule la communication entre un rover mars et le contrôle de mission situé sur terre. L'application est basée sur le language Typescript en utilisant le paradigme de programmation orientée objet.
+Cette application est un mini-jeu qui simule la communication entre un rover mars et le contrôleur de mission situé sur terre. L'application est basée sur le language Typescript en utilisant le paradigme de programmation orientée objet.
 
 **Crédits** :
 
@@ -34,9 +34,9 @@ Réalisé Ynov Campus Bordeaux
 - [x] Permettez le pilotage au clavier du Rover.
 - [ ] La carte se rafraîchit après chaque commande avec les éventuels obstacles découverts.
 
-**Schéma des dépendences**
+**Schéma des dépendances**
 
-![Schéma des dépendences](dependencies-schema.png)
+![Schéma des dépendances](dependencies-schema.png)
 
 ## Get Started
 
@@ -46,11 +46,11 @@ Pré-requis:
 
 **Cloner le repository**
 
-_( Il est recommendé de cloner avec la méthode SSH )_
+_( Il est recommandé de cloner avec la méthode SSH )_
 
 `git clone git@github.com:BastienBenech/architecture-logicielle.git`
 
-**Installer les dépendences**
+**Installer les dépendances**
 
 _( à la racine du project cloné précédement )_
 
