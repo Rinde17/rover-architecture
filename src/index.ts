@@ -2,9 +2,10 @@ import { Rover } from "./classes/Rover";
 import { RoverInterpreteur } from "./interpreteurs/RoverInterpreteur";
 import { MissionController} from "./classes/MissionController";
 import { Direction } from "./enums/Direction";
-import {Planete} from "./classes/Planete";
-import {Coordonates} from "./classes/Coordonates";
-import {Position} from "./classes/Position";
+import { Planete } from "./classes/Planete";
+import { Coordonates } from "./classes/Coordonates";
+import { Position } from "./classes/Position";
+import readline from 'readline';
 
 const planete = new Planete(10, 10);
 const coordonneesRover = new Coordonates(0,0);
@@ -12,8 +13,6 @@ const positionRover = new Position(coordonneesRover, Direction.Est);
 const rover = new Rover(positionRover, planete);
 const roverInterpreteur = new RoverInterpreteur(rover);
 const missionController = new MissionController(roverInterpreteur);
-
-const readline = require('readline');
 
 const rl = readline.createInterface({
     input: process.stdin,
