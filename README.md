@@ -17,8 +17,8 @@ Réalisé Ynov Campus Bordeaux
 
 - [x] Vous connaissez le point d’impact du Rover (x,y) et son orientation de départ (N,S,E,W)
 - [x] Le Rover sait avancer, reculer et tourner de 90° sur lui-même dans les 2 sens.
-      Après chaque commande il renvoie son état (position et orientation)
-      Les planètes sont toroïdales et de taille finie entière
+- [ ] Après chaque commande il renvoie son état (position et orientation)
+- [x] Les planètes sont toroïdales et de taille finie entière
 - [ ] Le Rover doit pouvoir traiter de manière autonome une suite de commandes.
 - [ ] Parfois il rencontrera un obstacle sur son passage.
 - [ ] Lorsqu’il rencontre un obstacle, il s’arrête, signale l’obstacle et renvoie sa position.
