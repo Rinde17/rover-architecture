@@ -34,6 +34,10 @@ Réalisé Ynov Campus Bordeaux
 - [x] Permettez le pilotage au clavier du Rover.
 - [ ] La carte se rafraîchit après chaque commande avec les éventuels obstacles découverts.
 
+**Schéma des dépendences**
+
+![Schéma des dépendences](dependencies-schema.png)
+
 ## Get Started
 
 Pré-requis:
