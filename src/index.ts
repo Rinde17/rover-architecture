@@ -5,10 +5,10 @@ import { Planete } from "./classes/Planete";
 import { Coordinates } from "./classes/Coordinates";
 import { Position } from "./classes/Position";
 import readline from "readline";
-import { ObstaclesBuilder } from "./builder/ObstaclesBuilder";
+import { ObstaclesService } from "./services/ObstaclesService";
 
 const planete = new Planete(10, 10);
-const obstacles = new ObstaclesBuilder()
+const obstacles = new ObstaclesService()
     .withPlanete(planete)
     .howManyObstacles(5)
     .build();
