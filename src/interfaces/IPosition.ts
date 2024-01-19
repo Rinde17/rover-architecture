@@ -1,7 +1,7 @@
 import { Direction } from "../enums/Direction";
-import { Coordonates } from "../classes/Coordonates";
+import { Coordinates } from "../classes/Coordinates";
 
 export interface IPosition {
-    coordonates: Coordonates
+    coordinates: Coordinates
     direction: Direction;
 }

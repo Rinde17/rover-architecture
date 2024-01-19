@@ -3,17 +3,16 @@ import { createServer } from "http";
 import { Server, Socket } from "socket.io";
 import { Rover } from "./classes/Rover";
 import { RoverInterpreteur } from "./interpreteurs/RoverInterpreteur";
-import { MissionController } from "./classes/MissionController";
 import { Planete } from "./classes/Planete";
 import { Direction } from "./enums/Direction";
 import { Position } from "./classes/Position";
-import { Coordonates } from "./classes/Coordonates";
+import { Coordinates } from "./classes/Coordinates";
 
 const app = express();
 const httpServer = createServer(app);
 const io = new Server(httpServer);
 const planete = new Planete(10, 10);
-const coordonneesRover = new Coordonates(0, 0);
+const coordonneesRover = new Coordinates(0, 0);
 const positionRover = new Position(coordonneesRover, Direction.Est);
 const rover = new Rover(positionRover, planete);
 const roverInterpreteur = new RoverInterpreteur(rover);
@@ -46,8 +45,8 @@ io.on("connection", (socket: Socket) => {
 
         // Afficher l'état actuel du Rover
         console.log(
-            `Position actuelle : ${rover.getCoordonnees().x}, ${
-                rover.getCoordonnees().y
+            `Position actuelle : ${rover.getCoordinates().x}, ${
+                rover.getCoordinates().y
             }`
         );
         console.log(`Direction actuelle : ${rover.getDirection()}`);

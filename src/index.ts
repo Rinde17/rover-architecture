@@ -1,18 +1,25 @@
 import { Rover } from "./classes/Rover";
 import { RoverInterpreteur } from "./interpreteurs/RoverInterpreteur";
-import { MissionController } from "./classes/MissionController";
 import { Direction } from "./enums/Direction";
 import { Planete } from "./classes/Planete";
-import { Coordonates } from "./classes/Coordonates";
+import { Coordinates } from "./classes/Coordinates";
 import { Position } from "./classes/Position";
 import readline from "readline";
+import { ObstaclesService } from "./services/ObstaclesService";
 
 const planete = new Planete(10, 10);
-const coordonneesRover = new Coordonates(0, 0);
+const obstacles = new ObstaclesService()
+    .withPlanete(planete)
+    .howManyObstacles(5)
+    .build();
+
+planete.setObstacles(obstacles);
+console.log(planete.obstacles);
+
+const coordonneesRover = new Coordinates(0, 0);
 const positionRover = new Position(coordonneesRover, Direction.Est);
 const rover = new Rover(positionRover, planete);
 const roverInterpreteur = new RoverInterpreteur(rover);
-const missionController = new MissionController(roverInterpreteur);
 
 const rl = readline.createInterface({
     input: process.stdin,
@@ -29,16 +36,16 @@ function demanderCommande() {
 
             switch (commandeMinuscule) {
                 case "z":
-                    missionController.envoyerCommandeAuRover("avancer");
+                    roverInterpreteur.executerCommande("avancer");
                     break;
                 case "s":
-                    missionController.envoyerCommandeAuRover("reculer");
+                    roverInterpreteur.executerCommande("reculer");
                     break;
                 case "q":
-                    missionController.envoyerCommandeAuRover("gauche");
+                    roverInterpreteur.executerCommande("gauche");
                     break;
                 case "d":
-                    missionController.envoyerCommandeAuRover("droite");
+                    roverInterpreteur.executerCommande("droite");
                     break;
                 case "9":
                     console.log("Le programme est terminé.");
@@ -50,8 +57,8 @@ function demanderCommande() {
 
             // Afficher l'état actuel du Rover
             console.log(
-                `Position actuelle : ${rover.getCoordonnees().x}, ${
-                    rover.getCoordonnees().y
+                `Position actuelle : ${rover.getCoordinates().x}, ${
+                    rover.getCoordinates().y
                 }`
             );
             console.log(`Direction actuelle : ${rover.getDirection()}`);
