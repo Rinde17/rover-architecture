@@ -1,5 +1,6 @@
 import { io } from "socket.io-client";
 import readline from "readline";
+import {Inputs} from "./enums/Inputs";
 
 const socket = io("http://localhost:3000");
 
@@ -10,7 +11,17 @@ const rl = readline.createInterface({
 
 async function demanderCommande() {
     while (true) {
-        const commande: string = await poserQuestion("Entrez des commandes (z: avancer, s: reculer, q: gauche, d: droite) ou \"exit\" pour quitter : ");
+        const commande: string = await poserQuestion(
+            'Entrez des commandes (' +
+            Inputs.Avancer +
+            ': avancer, ' +
+            Inputs.Reculer +
+            ': reculer, ' +
+            Inputs.Gauche +
+            ': gauche, ' +
+            Inputs.Droite +
+            ': droite) ou \"exit\" pour quitter : '
+        );
 
         // Convertir la commande en minuscules pour éviter les erreurs de casse
         const commandeMinuscule = commande.toLowerCase();

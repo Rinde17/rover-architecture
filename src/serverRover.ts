@@ -7,6 +7,7 @@ import { Direction } from "./enums/Direction";
 import { Position } from "./classes/Position";
 import { Coordinates } from "./classes/Coordinates";
 import { Planete } from "./classes/Planete";
+import {Inputs} from "./enums/Inputs";
 
 const app = express();
 const httpServer = createServer(app);
@@ -16,7 +17,6 @@ const positionRover = new Position(coordonneesRover, Direction.Est);
 const planete = new Planete(15, 15);
 planete.generateObstacle(5);
 const rover = new Rover(positionRover, planete);
-const roverInterpreteur = new RoverInterpreteur(rover);
 
 io.on("connection", (socket: Socket) => {
     console.log("Rover connecté !");
@@ -26,43 +26,77 @@ io.on("connection", (socket: Socket) => {
         console.log("Commandes : " + commandes);
 
         const listeCommandes = commandes.split('');
-        var commandIsValid = true;
+        let messageResponse = '\nCoordonnées initiales : { X: ' + rover.getCoordinates().x + ', Y: ' + rover.getCoordinates().y + ' } ' + 'Direction : ' + rover.getDirection();
 
         for (let i = 0; i < listeCommandes.length; i++) {
-            switch (listeCommandes[i]) {
-                case "z":
-                    roverInterpreteur.executerCommande("avancer");
-                    socket.emit('response', '\nLe rover a avancé et voici sa position : \n\n' +
-                        'Coordonnées : { X : ' + rover.getCoordinates().x + ', Y : ' + rover.getCoordinates().y + ' }\n' +
-                        'Direction : ' + rover.getDirection() + "\n\n");
+            switch (listeCommandes[i].toLowerCase()) {
+                case Inputs.Avancer:
+                    if (!rover.checkObstacleForward()) {
+                        rover.avancer();
+                        messageResponse = messageResponse +
+                            '\nCoordonnées : { X: ' + rover.getCoordinates().x + ', Y: ' + rover.getCoordinates().y + ' } ' +
+                            'Direction : ' +
+                            rover.getDirection()
+                        ;
+                    } else {
+                        messageResponse = messageResponse +
+                            '\nImpossible d\'avancer, obstacle en { X: ' +
+                            rover.getNextPosition().x +
+                            ', Y: ' +
+                            rover.getNextPosition().y +
+                            ' }'
+                        ;
+                    }
                     break;
-                case "s":
-                    roverInterpreteur.executerCommande("reculer");
-                    socket.emit('response', '\nLe rover a reculé et voici sa position : \n\n' +
-                        'Coordonnées : { X : ' + rover.getCoordinates().x + ', Y : ' + rover.getCoordinates().y + ' }\n' +
-                        'Direction : ' + rover.getDirection() + "\n\n");
+                case Inputs.Reculer:
+                    if (!rover.checkObstacleBackward()) {
+                        rover.reculer();
+                        messageResponse = messageResponse +
+                            '\nCoordonnées : { X: ' + rover.getCoordinates().x + ', Y: ' + rover.getCoordinates().y + ' } ' +
+                            'Direction : ' +
+                            rover.getDirection()
+                        ;
+                    } else {
+                        messageResponse = messageResponse +
+                            '\nImpossible de reculer, obstacle en { X: ' +
+                            rover.getNextPosition().x +
+                            ', Y: ' +
+                            rover.getNextPosition().y +
+                            ' }'
+                        ;
+                    }
                     break;
-                case "q":
-                    roverInterpreteur.executerCommande("gauche");
-                    socket.emit('response', '\nLe rover a tourné à gauche et voici sa position : \n\n' +
-                        'Coordonnées : { X : ' + rover.getCoordinates().x + ', Y : ' + rover.getCoordinates().y + ' }\n' +
-                        'Direction : ' + rover.getDirection() + "\n\n");
+                case Inputs.Gauche:
+                    rover.tournerGauche();
+                    messageResponse = messageResponse +
+                        '\nCoordonnées : { X: ' + rover.getCoordinates().x + ', Y: ' + rover.getCoordinates().y + ' } ' +
+                        'Direction : ' +
+                        rover.getDirection()
+                    ;
                     break;
-                case "d":
-                    roverInterpreteur.executerCommande("droite");
-                    socket.emit('response', '\nLe rover a tourné à droite et voici sa position : \n\n' +
-                        'Coordonnées : { X : ' + rover.getCoordinates().x + ', Y : ' + rover.getCoordinates().y + ' }\n' +
-                        'Direction : ' + rover.getDirection() + "\n\n");
+                case Inputs.Droite:
+                    rover.tournerDroite();
+                    messageResponse = messageResponse +
+                        '\nCoordonnées : { X: ' + rover.getCoordinates().x + ', Y: ' + rover.getCoordinates().y + ' } ' +
+                        'Direction : ' +
+                        rover.getDirection()
+                    ;
                     break;
                 default:
-                    commandIsValid = false;
-            }
-
-            if (!commandIsValid) {
-                socket.emit('response', "Commande invalide. \n[" + "\x1B[32m" + listeCommandes.slice(0, i).join(' ') + "\x1B[31m " + listeCommandes[i] + " \x1B[0m" + listeCommandes.slice(i+1, listeCommandes.length).join(' ') + "]");
-                break;
+                    messageResponse = messageResponse +
+                        "\nCommande invalide. [" +
+                        "\x1B[32m" +
+                        listeCommandes.slice(0, i).join(' ') +
+                        "\x1B[31m " +
+                        listeCommandes[i] +
+                        " \x1B[0m" +
+                        listeCommandes.slice(i+1, listeCommandes.length).join(' ') +
+                        "]"
+                    ;
+                    break;
             }
         }
+        socket.emit('response', messageResponse);
     });
 });
 
