@@ -1,9 +1,4 @@
 import { io } from "socket.io-client";
-import { Planete } from "./classes/Planete";
-import { Coordinates } from "./classes/Coordinates";
-import { Position } from "./classes/Position";
-import { Direction } from "./enums/Direction";
-import { Rover } from "./classes/Rover";
 import readline from "readline";
 
 const socket = io("http://localhost:3000");

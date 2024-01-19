@@ -3,7 +3,6 @@ import { createServer } from "http";
 import { Server, Socket } from "socket.io";
 import { Rover } from "./classes/Rover";
 import { RoverInterpreteur } from "./interpreteurs/RoverInterpreteur";
-import { Planete } from "./classes/Planete";
 import { Direction } from "./enums/Direction";
 import { Position } from "./classes/Position";
 import { Coordinates } from "./classes/Coordinates";
@@ -11,10 +10,9 @@ import { Coordinates } from "./classes/Coordinates";
 const app = express();
 const httpServer = createServer(app);
 const io = new Server(httpServer);
-const planete = new Planete(10, 10);
 const coordonneesRover = new Coordinates(0, 0);
 const positionRover = new Position(coordonneesRover, Direction.Est);
-const rover = new Rover(positionRover, planete);
+const rover = new Rover(positionRover);
 const roverInterpreteur = new RoverInterpreteur(rover);
 
 io.on("connection", (socket: Socket) => {

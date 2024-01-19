@@ -1,11 +1,11 @@
 import { Planete } from "../classes/Planete";
 import { Coordinates } from "../classes/Coordinates";
-import {Obstacle} from "../classes/Obstacle";
+import { Obstacle } from "../classes/Obstacle";
 
 export class ObstaclesService {
     planete: Planete = new Planete(10, 10);
     number: number = 0;
-    obstacles:  Obstacle[] = [];
+    obstacles: Obstacle[] = [];
 
     withPlanete(planete: Planete): this {
         this.planete = planete;
@@ -38,7 +38,11 @@ export class ObstaclesService {
 
     private coordinatesAlreadyUsed(coords: Coordinates): boolean {
         // Vérifier si les coordonnées sont déjà utilisées par un autre obstacle
-        return this.obstacles.some(obstacle => obstacle.getCoordonnees().x === coords.x || obstacle.getCoordonnees().y === coords.y);
+        return this.obstacles.some(
+            (obstacle) =>
+                obstacle.getCoordonnees().x === coords.x ||
+                obstacle.getCoordonnees().y === coords.y
+        );
     }
 
     private addObstacle(obstacle: Obstacle) {
@@ -49,5 +53,4 @@ export class ObstaclesService {
         this.generateObstacle();
         return this.obstacles;
     }
-
 }

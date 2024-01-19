@@ -5,7 +5,6 @@ import { Planete } from "../classes/Planete";
 
 export interface IRover {
     position: Position;
-    planete: Planete;
 
     avancer(): void;
     reculer(): void;

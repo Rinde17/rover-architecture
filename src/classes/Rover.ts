@@ -1,35 +1,45 @@
 import { Direction } from "../enums/Direction";
 import { IRover } from "../interfaces/IRover";
-import { Planete } from "./Planete";
 import { Position } from "./Position";
 import { Coordinates } from "./Coordinates";
+import { PlanetService } from "../services/PlanetService";
+import { Planete } from "./Planete";
 
 export class Rover implements IRover {
     position: Position;
     planete: Planete;
+    planeteService = new PlanetService();
 
-    constructor(position: Position, planete: Planete) {
+    constructor(position: Position) {
         this.position = position;
-        this.planete = planete;
+        this.planete = this.planeteService.build();
     }
 
     avancer() {
         if (this.checkObstacleForward()) {
-            console.log('Il y a un obstacle devant !');
+            console.log("Il y a un obstacle devant !");
         } else {
             // Logique pour avancer avec une planète toroïdale
             switch (this.position.direction) {
                 case Direction.Nord:
-                    this.position.coordinates.y = (this.position.coordinates.y + 1) % this.planete.height;
+                    this.position.coordinates.y =
+                        (this.position.coordinates.y + 1) % this.planete.height;
                     break;
                 case Direction.Sud:
-                    this.position.coordinates.y = (this.position.coordinates.y - 1 + this.planete.height) % this.planete.height;
+                    this.position.coordinates.y =
+                        (this.position.coordinates.y -
+                            1 +
+                            this.planete.height) %
+                        this.planete.height;
                     break;
                 case Direction.Est:
-                    this.position.coordinates.x = (this.position.coordinates.x + 1) % this.planete.width;
+                    this.position.coordinates.x =
+                        (this.position.coordinates.x + 1) % this.planete.width;
                     break;
                 case Direction.Ouest:
-                    this.position.coordinates.x = (this.position.coordinates.x - 1 + this.planete.width) % this.planete.width;
+                    this.position.coordinates.x =
+                        (this.position.coordinates.x - 1 + this.planete.width) %
+                        this.planete.width;
                     break;
             }
         }
@@ -37,21 +47,29 @@ export class Rover implements IRover {
 
     reculer() {
         if (this.checkObstacleBackward()) {
-            console.log('Il y a un obstacle derrière !');
+            console.log("Il y a un obstacle derrière !");
         } else {
             // Logique pour reculer avec une planète toroïdale
             switch (this.position.direction) {
                 case Direction.Nord:
-                    this.position.coordinates.y = (this.position.coordinates.y - 1 + this.planete.height) % this.planete.height;
+                    this.position.coordinates.y =
+                        (this.position.coordinates.y -
+                            1 +
+                            this.planete.height) %
+                        this.planete.height;
                     break;
                 case Direction.Sud:
-                    this.position.coordinates.y = (this.position.coordinates.y + 1) % this.planete.height;
+                    this.position.coordinates.y =
+                        (this.position.coordinates.y + 1) % this.planete.height;
                     break;
                 case Direction.Est:
-                    this.position.coordinates.x = (this.position.coordinates.x - 1 + this.planete.width) % this.planete.width;
+                    this.position.coordinates.x =
+                        (this.position.coordinates.x - 1 + this.planete.width) %
+                        this.planete.width;
                     break;
                 case Direction.Ouest:
-                    this.position.coordinates.x = (this.position.coordinates.x + 1) % this.planete.width;
+                    this.position.coordinates.x =
+                        (this.position.coordinates.x + 1) % this.planete.width;
                     break;
             }
         }
@@ -104,16 +122,22 @@ export class Rover implements IRover {
 
         switch (this.position.direction) {
             case Direction.Nord:
-                coordinatesCloned.y = (coordinatesCloned.y + 1) % this.planete.height;
+                coordinatesCloned.y =
+                    (coordinatesCloned.y + 1) % this.planete.height;
                 break;
             case Direction.Sud:
-                coordinatesCloned.y = (coordinatesCloned.y - 1 + this.planete.height) % this.planete.height;
+                coordinatesCloned.y =
+                    (coordinatesCloned.y - 1 + this.planete.height) %
+                    this.planete.height;
                 break;
             case Direction.Est:
-                coordinatesCloned.x = (coordinatesCloned.x + 1) % this.planete.width;
+                coordinatesCloned.x =
+                    (coordinatesCloned.x + 1) % this.planete.width;
                 break;
             case Direction.Ouest:
-                coordinatesCloned.x = (coordinatesCloned.x - 1 + this.planete.width) % this.planete.width;
+                coordinatesCloned.x =
+                    (coordinatesCloned.x - 1 + this.planete.width) %
+                    this.planete.width;
                 break;
         }
 
@@ -125,16 +149,22 @@ export class Rover implements IRover {
 
         switch (this.position.direction) {
             case Direction.Nord:
-                coordinatesCloned.y = (coordinatesCloned.y - 1 + this.planete.height) % this.planete.height;
+                coordinatesCloned.y =
+                    (coordinatesCloned.y - 1 + this.planete.height) %
+                    this.planete.height;
                 break;
             case Direction.Sud:
-                coordinatesCloned.y = (coordinatesCloned.y + 1) % this.planete.height;
+                coordinatesCloned.y =
+                    (coordinatesCloned.y + 1) % this.planete.height;
                 break;
             case Direction.Est:
-                coordinatesCloned.x = (coordinatesCloned.x - 1 + this.planete.width) % this.planete.width;
+                coordinatesCloned.x =
+                    (coordinatesCloned.x - 1 + this.planete.width) %
+                    this.planete.width;
                 break;
             case Direction.Ouest:
-                coordinatesCloned.x = (coordinatesCloned.x + 1) % this.planete.width;
+                coordinatesCloned.x =
+                    (coordinatesCloned.x + 1) % this.planete.width;
                 break;
         }
 
@@ -143,11 +173,11 @@ export class Rover implements IRover {
 
     private checkObstacleForward(): boolean {
         const nextPosition = this.getNextPosition();
-        return this.planete.hasObstacleAtPosition(nextPosition);
+        return this.planeteService.hasObstacleAtPosition(nextPosition);
     }
 
     private checkObstacleBackward(): boolean {
         const backwardPosition = this.getBackwardPosition();
-        return this.planete.hasObstacleAtPosition(backwardPosition);
+        return this.planeteService.hasObstacleAtPosition(backwardPosition);
     }
 }
