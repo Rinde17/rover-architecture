@@ -8,7 +8,6 @@ export class RoverInterpreteur {
     }
 
     executerCommande(commande: String) {
-        console.log("Rover Debug : ", this.rover);
         switch (commande.toLowerCase()) {
             case "avancer":
                 this.rover.avancer();
