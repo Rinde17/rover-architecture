@@ -1,5 +1,5 @@
-import { Direction } from "../src/enums/Direction";
-import { RoverBuilder } from "../src/builder/RoverBuilder";
+import { Direction } from "../../../src/enums/Direction";
+import { RoverBuilder } from "../../builder/RoverBuilder";
 
 describe("Le rover peut AVANCER", () => {
     test("AVANCER quand le Rover est Direction NORD", () => {
