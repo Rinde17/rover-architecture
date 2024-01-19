@@ -13,7 +13,7 @@ const obstacles = new ObstaclesService()
     .howManyObstacles(5)
     .build();
 
-planete.addObstacles(obstacles);
+planete.setObstacles(obstacles);
 console.log(planete.obstacles);
 
 const coordonneesRover = new Coordinates(0, 0);

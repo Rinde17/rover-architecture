@@ -13,11 +13,7 @@ export class Planete implements IPlanete {
         this.height = height;
     }
 
-    // addObstacle(obstacle: Obstacle) {
-    //     this.obstacles.push(obstacle);
-    // }
-
-    addObstacles(obstacles: Obstacle[]) {
+    setObstacles(obstacles: Obstacle[]) {
         this.obstacles = obstacles;
     }
 
