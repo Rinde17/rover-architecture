@@ -22,49 +22,46 @@ io.on("connection", (socket: Socket) => {
     console.log("Rover connecté !");
     console.log(planete.obstacles);
 
-    socket.on("commande", (commande: string) => {
-        console.log("Commande : " + commande);
+    socket.on("commande", (commandes: string) => {
+        console.log("Commandes : " + commandes);
 
-        switch (commande) {
-            case "z":
-                roverInterpreteur.executerCommande("avancer");
-                socket.emit('response', '\nLe rover a avancé et voici sa position : \n\n' +
-                    'Coordonnées : { X : ' + rover.getCoordinates().x + ', Y : ' + rover.getCoordinates().y + ' }\n' +
-                    'Direction : ' + rover.getDirection() + "\n\n");
-                break;
-            case "s":
-                roverInterpreteur.executerCommande("reculer");
-                socket.emit('response', '\nLe rover a reculé et voici sa position : \n\n' +
-                    'Coordonnées : { X : ' + rover.getCoordinates().x + ', Y : ' + rover.getCoordinates().y + ' }\n' +
-                    'Direction : ' + rover.getDirection() + "\n\n");
-                break;
-            case "q":
-                roverInterpreteur.executerCommande("gauche");
-                socket.emit('response', '\nLe rover a tourné à gauche et voici sa position : \n\n' +
-                    'Coordonnées : { X : ' + rover.getCoordinates().x + ', Y : ' + rover.getCoordinates().y + ' }\n' +
-                    'Direction : ' + rover.getDirection() + "\n\n");
-                break;
-            case "d":
-                roverInterpreteur.executerCommande("droite");
-                socket.emit('response', '\nLe rover a tourné à droite et voici sa position : \n\n' +
-                    'Coordonnées : { X : ' + rover.getCoordinates().x + ', Y : ' + rover.getCoordinates().y + ' }\n' +
-                    'Direction : ' + rover.getDirection() + "\n\n");
-                break;
-            case "9":
-                console.log("Déconnexion ...");
+        const listeCommandes = commandes.split('');
+        var commandIsValid = true;
 
-                socket.emit('response', '\nLa dernière position du rover avant sa déconnexion : \n\n' +
-                    'Coordonnées : { X : ' + rover.getCoordinates().x + ', Y : ' + rover.getCoordinates().y + ' }\n' +
-                    'Direction : ' + rover.getDirection() + "\n\n");
+        for (let i = 0; i < listeCommandes.length; i++) {
+            switch (listeCommandes[i]) {
+                case "z":
+                    roverInterpreteur.executerCommande("avancer");
+                    socket.emit('response', '\nLe rover a avancé et voici sa position : \n\n' +
+                        'Coordonnées : { X : ' + rover.getCoordinates().x + ', Y : ' + rover.getCoordinates().y + ' }\n' +
+                        'Direction : ' + rover.getDirection() + "\n\n");
+                    break;
+                case "s":
+                    roverInterpreteur.executerCommande("reculer");
+                    socket.emit('response', '\nLe rover a reculé et voici sa position : \n\n' +
+                        'Coordonnées : { X : ' + rover.getCoordinates().x + ', Y : ' + rover.getCoordinates().y + ' }\n' +
+                        'Direction : ' + rover.getDirection() + "\n\n");
+                    break;
+                case "q":
+                    roverInterpreteur.executerCommande("gauche");
+                    socket.emit('response', '\nLe rover a tourné à gauche et voici sa position : \n\n' +
+                        'Coordonnées : { X : ' + rover.getCoordinates().x + ', Y : ' + rover.getCoordinates().y + ' }\n' +
+                        'Direction : ' + rover.getDirection() + "\n\n");
+                    break;
+                case "d":
+                    roverInterpreteur.executerCommande("droite");
+                    socket.emit('response', '\nLe rover a tourné à droite et voici sa position : \n\n' +
+                        'Coordonnées : { X : ' + rover.getCoordinates().x + ', Y : ' + rover.getCoordinates().y + ' }\n' +
+                        'Direction : ' + rover.getDirection() + "\n\n");
+                    break;
+                default:
+                    commandIsValid = false;
+            }
 
-                setTimeout(() => {
-                    console.log("Le Rover est déconnecté.");
-                }, 2000);
-
-                io.close();
-                return;
-            default:
-                socket.emit('response', "Commande invalide. Veuillez réessayer.");
+            if (!commandIsValid) {
+                socket.emit('response', "Commande invalide. \n[" + "\x1B[32m" + listeCommandes.slice(0, i).join(' ') + "\x1B[31m " + listeCommandes[i] + " \x1B[0m" + listeCommandes.slice(i+1, listeCommandes.length).join(' ') + "]");
+                break;
+            }
         }
     });
 });

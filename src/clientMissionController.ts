@@ -10,7 +10,7 @@ const rl = readline.createInterface({
 
 async function demanderCommande() {
     while (true) {
-        const commande: string = await poserQuestion("Entrez une commande (z: avancer, s: reculer, q: gauche, d: droite, 9: quitter) : ");
+        const commande: string = await poserQuestion("Entrez des commandes (z: avancer, s: reculer, q: gauche, d: droite) ou \"exit\" pour quitter : ");
 
         // Convertir la commande en minuscules pour éviter les erreurs de casse
         const commandeMinuscule = commande.toLowerCase();
@@ -23,7 +23,7 @@ async function demanderCommande() {
         // Afficher la réponse
         console.log(reponse);
 
-        if (commandeMinuscule === '9') {
+        if (commandeMinuscule === 'exit') {
             // Si la commande est "9", fermer la connexion et terminer le programme
             console.log("Déconnexion ...");
 
