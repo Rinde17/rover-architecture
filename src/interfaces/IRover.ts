@@ -13,6 +13,4 @@ export interface IRover {
     tournerDroite(): void;
     getCoordinates(): Coordinates;
     getDirection(): Direction;
-    checkObstacleForward(): boolean;
-    checkObstacleBackward(): boolean;
 }

@@ -141,12 +141,12 @@ export class Rover implements IRover {
         return coordinatesCloned;
     }
 
-    checkObstacleForward(): boolean {
+    private checkObstacleForward(): boolean {
         const nextPosition = this.getNextPosition();
         return this.planete.hasObstacleAtPosition(nextPosition);
     }
 
-    checkObstacleBackward(): boolean {
+    private checkObstacleBackward(): boolean {
         const backwardPosition = this.getBackwardPosition();
         return this.planete.hasObstacleAtPosition(backwardPosition);
     }
