@@ -6,17 +6,22 @@ import { RoverInterpreteur } from "./interpreteurs/RoverInterpreteur";
 import { Direction } from "./enums/Direction";
 import { Position } from "./classes/Position";
 import { Coordinates } from "./classes/Coordinates";
+import { Planete } from "./classes/Planete";
+import { PlaneteService } from "./services/PlaneteService";
 
 const app = express();
 const httpServer = createServer(app);
 const io = new Server(httpServer);
 const coordonneesRover = new Coordinates(0, 0);
 const positionRover = new Position(coordonneesRover, Direction.Est);
-const rover = new Rover(positionRover);
+const planete = new Planete(15, 15);
+new PlaneteService().setObstacles(planete);
+const rover = new Rover(positionRover, planete);
 const roverInterpreteur = new RoverInterpreteur(rover);
 
 io.on("connection", (socket: Socket) => {
     console.log("Rover connecté !");
+    console.log(planete.obstacles);
 
     socket.on("commande", (commande: string) => {
         console.log("Commande : " + commande);

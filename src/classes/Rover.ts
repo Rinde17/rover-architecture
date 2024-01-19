@@ -2,17 +2,17 @@ import { Direction } from "../enums/Direction";
 import { IRover } from "../interfaces/IRover";
 import { Position } from "./Position";
 import { Coordinates } from "./Coordinates";
-import { PlanetService } from "../services/PlanetService";
+import { PlaneteService } from "../services/PlaneteService";
 import { Planete } from "./Planete";
 
 export class Rover implements IRover {
     position: Position;
     planete: Planete;
-    planeteService = new PlanetService();
+    planeteService = new PlaneteService();
 
-    constructor(position: Position) {
+    constructor(position: Position, planete: Planete) {
         this.position = position;
-        this.planete = this.planeteService.build();
+        this.planete = planete;
     }
 
     avancer() {
@@ -173,11 +173,17 @@ export class Rover implements IRover {
 
     private checkObstacleForward(): boolean {
         const nextPosition = this.getNextPosition();
-        return this.planeteService.hasObstacleAtPosition(nextPosition);
+        return this.planeteService.hasObstacleAtPosition(
+            nextPosition,
+            this.planete
+        );
     }
 
     private checkObstacleBackward(): boolean {
         const backwardPosition = this.getBackwardPosition();
-        return this.planeteService.hasObstacleAtPosition(backwardPosition);
+        return this.planeteService.hasObstacleAtPosition(
+            backwardPosition,
+            this.planete
+        );
     }
 }
