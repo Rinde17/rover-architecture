@@ -51,7 +51,7 @@ function attendreReponse() {
 }
 
 socket.on("connect", () => {
-    console.log("Le client MissionController est connecté!");
+    console.log("Le client MissionController est connecté !");
     // Démarrer la boucle en demandant la première commande
     demanderCommande();
 });

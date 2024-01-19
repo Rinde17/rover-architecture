@@ -66,14 +66,6 @@ io.on("connection", (socket: Socket) => {
             default:
                 socket.emit('response', "Commande invalide. Veuillez réessayer.");
         }
-
-        // Afficher l'état actuel du Rover
-        // console.log(
-        //     `Position actuelle : ${rover.getCoordinates().x}, ${
-        //         rover.getCoordinates().y
-        //     }`
-        // );
-        // console.log(`Direction actuelle : ${rover.getDirection()}`);
     });
 });
 
