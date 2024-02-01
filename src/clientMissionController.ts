@@ -23,29 +23,27 @@ async function demanderCommande() {
             ': droite) ou \"exit\" pour quitter : '
         );
 
-        // Convertir la commande en minuscules pour éviter les erreurs de casse
-        const commandeMinuscule = commande.toLowerCase();
+        // Quitter le programme
+        if (commande.toLowerCase() === 'exit') {
+            // Déconnexion
+            console.log("Déconnexion ...");
 
-        socket.emit("commande", commandeMinuscule);
+            setTimeout(() => {
+                console.log("Le Mission Controller est bien déconnecté !");
+            }, 1000);
+
+            rl.close();
+            socket.close();
+            break;
+        }
+
+        socket.emit("commande", commande);
 
         // Attendre la réponse du serveur
         const reponse = await attendreReponse();
 
         // Afficher la réponse
         console.log(reponse);
-
-        if (commandeMinuscule === 'exit') {
-            // Si la commande est "9", fermer la connexion et terminer le programme
-            console.log("Déconnexion ...");
-
-            setTimeout(() => {
-                console.log("Le Mission Controller est bien déconnecté !");
-            }, 3000);
-
-            rl.close();
-            socket.close();
-            break;
-        }
     }
 }
 
