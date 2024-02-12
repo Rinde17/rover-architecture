@@ -10,7 +10,11 @@ import {Interpreter} from "./interpreteurs/Interpreter";
 
 const app = express();
 const httpServer = createServer(app);
-const io = new Server(httpServer);
+const io = new Server(httpServer, {
+    cors: {
+        origin: "*"
+    }
+});
 const coordonneesRover = new Coordinates(0, 0);
 const positionRover = new Position(coordonneesRover, Direction.Est);
 const planete = new Planete(15, 15);
