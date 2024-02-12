@@ -41,7 +41,7 @@ html {
 
 #disconnected-btn {
     background-color: rgb(228, 85, 78);
-    border: 4px solid grey;
+    border: 4px solid #453636;
     height: 64px;
     width: 64px;
     cursor: pointer;
@@ -49,9 +49,10 @@ html {
 
 #mission-control {
     display: flex;
-    width: 60%;
+    width: 40%;
+    height: 225px;
     margin-top: 32px !important;
-    border: 12px solid grey;
+    border: 12px solid #6C6C6C;
     border-radius: 4px;
     justify-content: center;
     align-items: center;
@@ -78,7 +79,7 @@ table {
 
 th {
     margin: 0;
-    background-color: grey;
+    background-color: #6C6C6C;
     color: white;
     padding: 12px 8px;
     height: 78px;
@@ -87,7 +88,7 @@ th {
 }
 
 #x-index>td {
-    background: grey;
+    background: #6C6C6C;
 }
 
 td {
@@ -115,20 +116,26 @@ tr:not(:first-child)>td {
 
 #terminal {
     width: 100%;
+    height: 100%;
     background: url('../img/terminal-bg.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
-    position: relative;
+    display: flex;
+    flex-direction: column;
 }
 
 #aside-panel {
-    border-left: 12px solid grey;
-    display: flex;
-    flex-direction: column;
+    border-left: 12px solid #6C6C6C;
+    display: grid;
+    grid-template-columns: 1;
+    grid-template-rows: 1fr 1fr;
     align-items: center;
+    justify-items: center;
     margin: 0;
     padding: 10px;
+    background: black;
+    height: 100%;
 }
 
 #signals {
@@ -140,20 +147,52 @@ tr:not(:first-child)>td {
 
 textarea {
     background: transparent;
+    width: 100%;
+    height: 100%;
     padding: 0;
     margin: 0;
     /* this disable the rezing of the textarea */
     resize: none;
-    height: 100%;
-    color: #5FAC51;
-    font-size: 22px;
-}
-
-#std-in>input {
-    background: transparent;
-    border: none;
     /* this disable the focus style */
     outline: none;
     color: #5FAC51;
     font-size: 22px;
+    border: none;
+}
+
+#cmd {
+    font-family: courier;
+    font-size: 14px;
+    color: #21f838;
+    padding: 5px;
+    overflow: hidden;
+    cursor: text;
+    font-size: 18px;
+    flex-grow: 0;
+}
+
+#cmd span {
+    float: left;
+    padding-left: 3px;
+    padding-right: 3px;
+    white-space: pre;
+}
+
+#cursor {
+    float: left;
+    width: 8px;
+    height: 22px;
+    background: #21f838;
+    animation: blink 0.8s infinite;
+}
+
+input {
+    width: 0;
+    height: 0;
+    opacity: 0;
+}
+
+#std-out {
+    width: 100%;
+    flex-grow: 1;
 }

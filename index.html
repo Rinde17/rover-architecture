@@ -21,7 +21,11 @@
         <div id="mission-control">
             <div id="terminal">
                 <div id="std-out"><textarea readonly name="" id=""></textarea></div>
-                <div id="std-in"><input type="text"></div>
+                <div id="cmd">
+                    <span>></span>
+                    <div id="cursor"></div>
+                </div>
+                <input type="text" name="command" value="" />
             </div>
             <div id="aside-panel">
                 <div id="signals">
@@ -238,6 +242,9 @@
             </table>
         </div>
     </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="./src/assets/js/jquery-cursor.js"></script>
 </body>
 
 </html>
