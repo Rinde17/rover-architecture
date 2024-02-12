@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mars Rover</title>
+    <link rel="stylesheet" href="src/assets/css/styles.css">
+</head>
+
+<body>
+    <div id="title-container">
+        <div id="title-content">
+            <img src="./src/assets/img/mars-rover-icon.svg" alt="">
+            <h1>Mars Rover Game</h1>
+        </div>
+    </div>
+
+    <div id="app">
+        <div id="mission-control">
+            <div id="terminal">
+                <div id="std-out"><textarea readonly name="" id=""></textarea></div>
+                <div id="std-in"><input type="text"></div>
+            </div>
+            <div id="aside-panel">
+                <div id="signals">
+                    <img width="56px" height="56px" src="./src/assets/img/network-cellular-signal-excellent.svg"
+                        alt="" />
+                    <img width="56px" height="56px" src="./src/assets/img/warning-filled.svg" />
+                </div>
+                <button id="disconnected-btn">
+                    <image width="56px" height="56px" id="disconnected-icon" src="./src/assets/img/off-svgrepo-com.svg"
+                        alt="">
+                </button>
+            </div>
+        </div>
+        <div id="grid">
+            <table>
+                <tbody>
+                    <tr id="x-index">
+                        <!-- Must all be th tag-->
+                        <th></th>
+                        <td>A</td>
+                        <td>B</td>
+                        <td>C</td>
+                        <td>D</td>
+                        <td>E</td>
+                        <td>F</td>
+                        <td>G</td>
+                        <td>H</td>
+                        <td>I</td>
+                        <td>J</td>
+                        <td>K</td>
+                        <td>L</td>
+                    </tr>
+                    <tr>
+                        <th>1</th>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                    </tr>
+                    <tr>
+                        <th>2</th>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                    </tr>
+                    <tr>
+                        <th>3</th>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                    </tr>
+                    <tr>
+                        <th>4</th>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                    </tr>
+                    <tr>
+                        <th>5</th>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                    </tr>
+                    <tr>
+                        <th>6</th>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                    </tr>
+                    <tr>
+                        <th>7</th>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                    </tr>
+                    <tr>
+                        <th>8</th>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                    </tr>
+                    <tr>
+                        <th>9</th>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                    </tr>
+                    <tr>
+                        <th>10</th>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                    </tr>
+                    <tr>
+                        <th>11</th>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                    </tr>
+                    <tr>
+                        <th>12</th>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                        <td>qsdqsd</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>
