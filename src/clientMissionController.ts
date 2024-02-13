@@ -1,6 +1,6 @@
 import { io } from "socket.io-client";
 import readline from "readline";
-import {Inputs} from "./enums/Inputs";
+import { Inputs } from "./enums/Inputs";
 
 const socket = io("http://localhost:3000");
 
@@ -12,25 +12,29 @@ const rl = readline.createInterface({
 async function demanderCommande() {
     while (true) {
         const commande: string = await poserQuestion(
-            'Entrez des commandes (' +
-            Inputs.Avancer +
-            ': avancer, ' +
-            Inputs.Reculer +
-            ': reculer, ' +
-            Inputs.Gauche +
-            ': gauche, ' +
-            Inputs.Droite +
-            ': droite) ou \"exit\" pour quitter : '
+            "Entrez des commandes (" +
+                Inputs.Avancer +
+                ": avancer, " +
+                Inputs.Reculer +
+                ": reculer, " +
+                Inputs.Gauche +
+                ": gauche, " +
+                Inputs.Droite +
+                ': droite) ou "exit" pour quitter : '
         );
 
         // Quitter le programme
-        if (commande.toLowerCase() === 'exit') {
+        if (commande.toLowerCase() === "exit") {
             // Déconnexion
             console.log("Déconnexion ...");
 
             setTimeout(() => {
                 console.log("Le Mission Controller est bien déconnecté !");
-            }, 1000);
+                socket.emit(
+                    "close",
+                    "Le Mission Controller est bien déconnecté !"
+                );
+            }, 3000);
 
             rl.close();
             socket.close();
@@ -55,7 +59,7 @@ function poserQuestion(question: string): Promise<string> {
 
 function attendreReponse() {
     return new Promise((resolve) => {
-        socket.once('response', resolve);
+        socket.once("response", resolve);
     });
 }
 

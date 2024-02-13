@@ -195,4 +195,7 @@ input {
 #std-out {
     width: 100%;
     flex-grow: 1;
+    color: #21f838;
+    padding: 5px 5px;
+    overflow: scroll;
 }
