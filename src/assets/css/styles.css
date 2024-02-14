@@ -127,11 +127,10 @@ tr:not(:first-child)>td {
 
 #aside-panel {
     border-left: 12px solid #6C6C6C;
-    display: grid;
-    grid-template-columns: 1;
-    grid-template-rows: 1fr 1fr;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
     align-items: center;
-    justify-items: center;
     margin: 0;
     padding: 10px;
     background: black;

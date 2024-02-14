@@ -1,27 +1,31 @@
 import { Socket } from "socket.io-client";
-import van from "vanjs-core";
+import van, { State } from "vanjs-core";
 
 const { div, button, img, span } = van.tags;
+
+const connexionIconColor: State<string> = van.state("red");
 
 const ConnexionIndicator = () => {
     return span(
         {
             id: "connexion-indicator",
-            style: "font-size: 56px; margin: 0;",
+            style: () =>
+                `color: ${van.val(
+                    connexionIconColor
+                )};font-size: 56px; position: absolute; top: -50%; right: -30%;`,
         },
         "•"
     );
 };
 
 const AsidePanel = (socket: Socket) => {
+    const isSocketConnected: State<boolean> = van.state(socket.connected);
+
     const changeConnexionIconColor = () => {
-        const connexionIndicator = document.getElementById(
-            "connexion-indicator"
-        );
-        if (socket.connected === true) {
-            connexionIndicator!.style.color = "green";
+        if (socket.connected) {
+            connexionIconColor.val = "green";
         } else {
-            connexionIndicator!.style.color = "red";
+            connexionIconColor.val = "red";
         }
     };
 
@@ -39,13 +43,14 @@ const AsidePanel = (socket: Socket) => {
             stdoutElement!.innerText += "\n> Déconnexion en cours ...";
             setTimeout(() => {
                 socket.close();
+                isSocketConnected.val = false;
                 changeConnexionIconColor();
             }, 1500);
-            changeConnexionIconColor();
         } else {
-            stdoutElement!.innerHTML += "\n> Connexion en cours ...";
+            stdoutElement!.innerText += "\n> Connexion en cours ...";
             setTimeout(() => {
                 socket.open();
+                isSocketConnected.val = true;
                 changeConnexionIconColor();
             }, 1500);
         }
@@ -64,7 +69,10 @@ const AsidePanel = (socket: Socket) => {
                 id: "network-health-icon",
                 width: "56",
                 height: "56",
-                src: "./src/assets/img/network-cellular-signal-excellent.svg",
+                src: () =>
+                    isSocketConnected.val
+                        ? "./src/assets/img/network-cellular-signal-excellent.svg"
+                        : "./src/assets/img/network-cellular-offline.svg",
             }),
             img({
                 width: "56",
@@ -72,16 +80,18 @@ const AsidePanel = (socket: Socket) => {
                 src: "./src/assets/img/warning-filled.svg",
             }),
         ]),
-        button(
-            { id: "disconnected-btn", onclick: () => socketOnOff() },
-            img({
-                id: "disconnected-icon",
-                width: "56",
-                height: "56",
-                src: "./src/assets/img/off-svgrepo-com.svg",
-            })
-        ),
-        ConnexionIndicator(),
+        div({ style: "position: relative;" }, [
+            button(
+                { id: "disconnected-btn", onclick: () => socketOnOff() },
+                img({
+                    id: "disconnected-icon",
+                    width: "56",
+                    height: "56",
+                    src: "./src/assets/img/off-svgrepo-com.svg",
+                })
+            ),
+            ConnexionIndicator(),
+        ]),
     ];
 };
 
