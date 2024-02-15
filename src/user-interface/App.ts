@@ -11,7 +11,7 @@ const socket = io("http://localhost:3000", { autoConnect: false });
 function App() {
     return div(
         { id: "mission-control" },
-        div({ id: "terminal" }, Terminal()),
+        div({ id: "terminal" }, Terminal(socket)),
         div({ id: "aside-panel" }, AsidePanel(socket))
     );
 }

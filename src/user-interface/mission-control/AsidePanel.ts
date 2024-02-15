@@ -30,24 +30,24 @@ const AsidePanel = (socket: Socket) => {
     };
 
     socket.on("connect", () => {
-        const stdoutElement = document.getElementById("std-out");
+        const stdoutElement = document.getElementById("textarea");
         changeConnexionIconColor();
-        stdoutElement!.innerText += "\n> La connexion au Rover est établie !";
-        stdoutElement!.innerText +=
+        stdoutElement!.innerHTML += "\n> La connexion au Rover est établie !";
+        stdoutElement!.innerHTML +=
             "\n> Entrez une commande (z: avancer, s: reculer, q: gauche, d: droite, 9: quitter)";
     });
 
     const socketOnOff = () => {
-        const stdoutElement = document.getElementById("std-out");
+        const stdoutElement = document.getElementById("textarea");
         if (socket.connected) {
-            stdoutElement!.innerText += "\n> Déconnexion en cours ...";
+            stdoutElement!.innerHTML += "\n> Déconnexion en cours ...";
             setTimeout(() => {
                 socket.close();
                 isSocketConnected.val = false;
                 changeConnexionIconColor();
             }, 1500);
         } else {
-            stdoutElement!.innerText += "\n> Connexion en cours ...";
+            stdoutElement!.innerHTML += "\n> Connexion en cours ...";
             setTimeout(() => {
                 socket.open();
                 isSocketConnected.val = true;
@@ -57,10 +57,10 @@ const AsidePanel = (socket: Socket) => {
     };
 
     socket.on("disconnect", (message) => {
-        const stdoutElement = document.getElementById("std-out");
-        stdoutElement!.innerText +=
+        const stdoutElement = document.getElementById("textarea");
+        stdoutElement!.innerHTML +=
             "\n> La connexion avec le Rover à été interrompue !";
-        stdoutElement!.innerText += `\n> ${message}`;
+        stdoutElement!.innerHTML += `\n> ${message}`;
     });
 
     return [

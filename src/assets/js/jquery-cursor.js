@@ -1,3 +1,4 @@
+/* 
 $(function () {
     var cursor;
     $("#cmd, #std-out").click(function () {
@@ -26,3 +27,4 @@ $(function () {
         });
     });
 });
+ */
