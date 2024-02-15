@@ -35,6 +35,7 @@ const AsidePanel = (socket: Socket) => {
         stdoutElement!.innerHTML += "\n> La connexion au Rover est établie !";
         stdoutElement!.innerHTML +=
             "\n> Entrez une commande (z: avancer, s: reculer, q: gauche, d: droite, 9: quitter)";
+        stdoutElement!.scrollTop = stdoutElement!.scrollHeight;
     });
 
     const socketOnOff = () => {
@@ -61,6 +62,7 @@ const AsidePanel = (socket: Socket) => {
         stdoutElement!.innerHTML +=
             "\n> La connexion avec le Rover à été interrompue !";
         stdoutElement!.innerHTML += `\n> ${message}`;
+        stdoutElement!.scrollTop = stdoutElement!.scrollHeight;
     });
 
     return [

@@ -13,7 +13,6 @@ const Terminal = (socket: Socket) => {
     };
 
     const handleInput = async (e: KeyboardEvent) => {
-        const stdoutElement = document.getElementById("std-out");
         const textarea = document.getElementById("textarea");
         if (e.key === "Enter" && inputContent.val !== "") {
             socket.emit("commande", inputContent.val.toLowerCase());
@@ -22,6 +21,7 @@ const Terminal = (socket: Socket) => {
                 .replace(/\n{2,}|\r/g, "")
                 .trim()}`;
             inputContent.val = "";
+            textarea!.scrollTop = textarea!.scrollHeight;
             return;
         }
     };
