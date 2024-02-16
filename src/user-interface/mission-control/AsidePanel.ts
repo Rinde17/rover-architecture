@@ -18,6 +18,14 @@ const ConnexionIndicator = () => {
     );
 };
 
+const printOutput = (message: Array<string>) => {
+    const stdoutElement = document.getElementById("textarea");
+    for (let i = 0; i < message.length; i++) {
+        stdoutElement!.innerHTML += `\n> ${message[i]}`;
+    }
+    stdoutElement!.scrollTop = stdoutElement!.scrollHeight;
+};
+
 const AsidePanel = (socket: Socket) => {
     const isSocketConnected: State<boolean> = van.state(socket.connected);
 
@@ -30,25 +38,23 @@ const AsidePanel = (socket: Socket) => {
     };
 
     socket.on("connect", () => {
-        const stdoutElement = document.getElementById("textarea");
         changeConnexionIconColor();
-        stdoutElement!.innerHTML += "\n> La connexion au Rover est établie !";
-        stdoutElement!.innerHTML +=
-            "\n> Entrez une commande (z: avancer, s: reculer, q: gauche, d: droite, 9: quitter)";
-        stdoutElement!.scrollTop = stdoutElement!.scrollHeight;
+        printOutput([
+            "La connexion au Rover est établie !",
+            "Entrez une commande (z: avancer, s: reculer, q: gauche, d: droite, 9: quitter)",
+        ]);
     });
 
     const socketOnOff = () => {
-        const stdoutElement = document.getElementById("textarea");
         if (socket.connected) {
-            stdoutElement!.innerHTML += "\n> Déconnexion en cours ...";
+            printOutput(["Déconnexion en cours ..."]);
             setTimeout(() => {
                 socket.close();
                 isSocketConnected.val = false;
                 changeConnexionIconColor();
             }, 1500);
         } else {
-            stdoutElement!.innerHTML += "\n> Connexion en cours ...";
+            printOutput(["Connexion en cours ..."]);
             setTimeout(() => {
                 socket.open();
                 isSocketConnected.val = true;
@@ -58,11 +64,10 @@ const AsidePanel = (socket: Socket) => {
     };
 
     socket.on("disconnect", (message) => {
-        const stdoutElement = document.getElementById("textarea");
-        stdoutElement!.innerHTML +=
-            "\n> La connexion avec le Rover à été interrompue !";
-        stdoutElement!.innerHTML += `\n> ${message}`;
-        stdoutElement!.scrollTop = stdoutElement!.scrollHeight;
+        printOutput([
+            "La connexion avec le Rover à été interrompue !",
+            message,
+        ]);
     });
 
     return [
