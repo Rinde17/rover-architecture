@@ -39,7 +39,9 @@ const Grid = () => {
             yIndex.map((yIndex, index) =>
                 tr({ id: index === 0 && "x-index" }, [
                     th(yIndex),
-                    xIndex.map((_, index) => td(xIndex[index])),
+                    index === 0
+                        ? xIndex.map((_, index) => th(xIndex[index]))
+                        : xIndex.map(() => td()),
                 ])
             )
         )
