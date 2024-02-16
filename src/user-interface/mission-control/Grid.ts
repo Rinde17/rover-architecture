@@ -36,12 +36,16 @@ const Grid = () => {
         {},
         tbody(
             {},
-            yIndex.map((yIndex, index) =>
-                tr({ id: index === 0 && "x-index" }, [
-                    th(yIndex),
+            yIndex.map((yIndexLabel, index) =>
+                tr({ id: index === 0 ? "x-index" : `row-${index}` }, [
+                    th({ id: `y-index-${index}` }, yIndexLabel),
                     index === 0
-                        ? xIndex.map((_, index) => th(xIndex[index]))
-                        : xIndex.map(() => td()),
+                        ? xIndex.map((xIndexLabel, index2) =>
+                              th({ id: `x-index-${index2}` }, xIndex[index2])
+                          )
+                        : xIndex.map((_, index3) =>
+                              td({ id: `x${index - 1}-y${index3}` })
+                          ),
                 ])
             )
         )
