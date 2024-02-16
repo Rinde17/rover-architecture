@@ -1,5 +1,6 @@
 import { Socket } from "socket.io-client";
 import van, { State } from "vanjs-core";
+import { printOutput } from "../utils";
 
 const { div, button, img, span } = van.tags;
 
@@ -16,14 +17,6 @@ const ConnexionIndicator = () => {
         },
         "•"
     );
-};
-
-const printOutput = (message: Array<string>) => {
-    const stdoutElement = document.getElementById("textarea");
-    for (let i = 0; i < message.length; i++) {
-        stdoutElement!.innerHTML += `\n> ${message[i]}`;
-    }
-    stdoutElement!.scrollTop = stdoutElement!.scrollHeight;
 };
 
 const AsidePanel = (socket: Socket) => {

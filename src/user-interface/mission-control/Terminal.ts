@@ -1,5 +1,6 @@
 import { Socket } from "socket.io-client";
 import van, { State } from "vanjs-core";
+import { printOutput } from "../utils";
 
 const { div, textarea, span, input } = van.tags;
 
@@ -13,15 +14,12 @@ const Terminal = (socket: Socket) => {
     };
 
     const handleInput = async (e: KeyboardEvent) => {
-        const textarea = document.getElementById("textarea");
         if (e.key === "Enter" && inputContent.val !== "") {
             socket.emit("commande", inputContent.val.toLowerCase());
             const reponse = await attendreReponse();
-            textarea!.innerHTML += `\n> ${inputContent.val}${reponse
-                .replace(/\n{2,}|\r/g, "")
-                .trim()}`;
+            const responseTrimmed = reponse.replace(/\n{2,}|\r/g, "").trim();
+            printOutput([`${inputContent.val}`, responseTrimmed]);
             inputContent.val = "";
-            textarea!.scrollTop = textarea!.scrollHeight;
             return;
         }
     };
@@ -37,7 +35,6 @@ const Terminal = (socket: Socket) => {
         }, 500);
 
     const handleFocus = () => {
-        console.log("focus");
         const textarea = document.getElementById("textarea");
         const cmdInput = document.getElementById("cmd-input");
         document.activeElement !== cmdInput && cmdInput!.focus();
@@ -47,7 +44,6 @@ const Terminal = (socket: Socket) => {
     };
 
     const handleInputBlur = () => {
-        console.log("blur");
         const cursor = document.getElementById("cursor");
         clearInterval(cursorInterval());
         cursor?.style.setProperty("visibility", "visible");
