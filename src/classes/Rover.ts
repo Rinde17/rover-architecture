@@ -3,65 +3,78 @@ import { IRover } from "../interfaces/IRover";
 import { Position } from "./Position";
 import { Coordinates } from "./Coordinates";
 import { Planete } from "./Planete";
+import { Server } from "socket.io";
 
 export class Rover implements IRover {
     position: Position;
     planete: Planete;
+    socket: Server;
 
-    constructor(position: Position, planete: Planete) {
+    constructor(position: Position, planete: Planete, socket: Server) {
         this.position = position;
         this.planete = planete;
+        this.socket = socket;
     }
 
     avancer() {
-        // Logique pour avancer avec une planète toroïdale
-        switch (this.position.direction) {
-            case Direction.Nord:
-                this.position.coordinates.y =
-                    (this.position.coordinates.y + 1) % this.planete.height;
-                break;
-            case Direction.Sud:
-                this.position.coordinates.y =
-                    (this.position.coordinates.y -
-                        1 +
-                        this.planete.height) %
-                    this.planete.height;
-                break;
-            case Direction.Est:
-                this.position.coordinates.x =
-                    (this.position.coordinates.x + 1) % this.planete.width;
-                break;
-            case Direction.Ouest:
-                this.position.coordinates.x =
-                    (this.position.coordinates.x - 1 + this.planete.width) %
-                    this.planete.width;
-                break;
+        if (this.checkObstacleForward()) {
+            console.log("Il y a un obstacle devant !");
+            this.socket.emit("response", "Il y a un obstacle devant !");
+        } else {
+            // Logique pour avancer avec une planète toroïdale
+            switch (this.position.direction) {
+                case Direction.Nord:
+                    this.position.coordinates.y =
+                        (this.position.coordinates.y + 1) % this.planete.height;
+                    break;
+                case Direction.Sud:
+                    this.position.coordinates.y =
+                        (this.position.coordinates.y -
+                            1 +
+                            this.planete.height) %
+                        this.planete.height;
+                    break;
+                case Direction.Est:
+                    this.position.coordinates.x =
+                        (this.position.coordinates.x + 1) % this.planete.width;
+                    break;
+                case Direction.Ouest:
+                    this.position.coordinates.x =
+                        (this.position.coordinates.x - 1 + this.planete.width) %
+                        this.planete.width;
+                    break;
+            }
         }
     }
 
     reculer() {
-        // Logique pour reculer avec une planète toroïdale
-        switch (this.position.direction) {
-            case Direction.Nord:
-                this.position.coordinates.y =
-                    (this.position.coordinates.y -
-                        1 +
-                        this.planete.height) %
-                    this.planete.height;
-                break;
-            case Direction.Sud:
-                this.position.coordinates.y =
-                    (this.position.coordinates.y + 1) % this.planete.height;
-                break;
-            case Direction.Est:
-                this.position.coordinates.x =
-                    (this.position.coordinates.x - 1 + this.planete.width) %
-                    this.planete.width;
-                break;
-            case Direction.Ouest:
-                this.position.coordinates.x =
-                    (this.position.coordinates.x + 1) % this.planete.width;
-                break;
+        if (this.checkObstacleBackward()) {
+            console.log("Il y a un obstacle derrière !");
+            this.socket.emit("response", "Il y a un obstacle derrière !");
+        } else {
+            // Logique pour reculer avec une planète toroïdale
+            switch (this.position.direction) {
+                case Direction.Nord:
+                    this.position.coordinates.y =
+                        (this.position.coordinates.y -
+                            1 +
+                            this.planete.height) %
+                        this.planete.height;
+                    break;
+                case Direction.Sud:
+                    this.position.coordinates.y =
+                        (this.position.coordinates.y + 1) % this.planete.height;
+                    break;
+                case Direction.Est:
+                    this.position.coordinates.x =
+                        (this.position.coordinates.x - 1 + this.planete.width) %
+                        this.planete.width;
+                    break;
+                case Direction.Ouest:
+                    this.position.coordinates.x =
+                        (this.position.coordinates.x + 1) % this.planete.width;
+                    break;
+            }
         }
     }
 
@@ -163,15 +176,11 @@ export class Rover implements IRover {
 
     checkObstacleForward(): boolean {
         const nextPosition = this.getNextPosition();
-        return this.planete.hasObstacleAtPosition(
-            nextPosition
-        );
+        return this.planete.hasObstacleAtPosition(nextPosition);
     }
 
     checkObstacleBackward(): boolean {
         const backwardPosition = this.getBackwardPosition();
-        return this.planete.hasObstacleAtPosition(
-            backwardPosition
-        );
+        return this.planete.hasObstacleAtPosition(backwardPosition);
     }
 }
