@@ -23,19 +23,19 @@ export const applyRoverPosition = (
     ) {
         console.log("oldPosition not equals newPosition");
         oldCellColorReset(oldPositions);
-    }
-    const cell = document.getElementById(
-        `x${newPositions.x}-y${newPositions.y}`
-    );
-    if (cell) {
-        console.log(
-            "style applyed to cell { x: " +
-                newPositions.x +
-                ", y: " +
-                newPositions.y +
-                " }"
+        const cell = document.getElementById(
+            `x${newPositions.x}-y${newPositions.y}`
         );
-        cell.style.setProperty("background-color", "red");
+        if (cell) {
+            console.log(
+                "style applyed to cell { x: " +
+                    newPositions.x +
+                    ", y: " +
+                    newPositions.y +
+                    " }"
+            );
+            cell.style.setProperty("background-color", "red");
+        }
     }
 };
 
