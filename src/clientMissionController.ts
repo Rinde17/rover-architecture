@@ -1,5 +1,6 @@
 import { io } from "socket.io-client";
 import readline from "readline";
+import {Inputs} from "./enums/Inputs";
 
 const socket = io("http://localhost:3000");
 
@@ -10,31 +11,39 @@ const rl = readline.createInterface({
 
 async function demanderCommande() {
     while (true) {
-        const commande: string = await poserQuestion("Entrez une commande (z: avancer, s: reculer, q: gauche, d: droite, 9: quitter) : ");
+        const commande: string = await poserQuestion(
+            'Entrez des commandes (' +
+            Inputs.Avancer +
+            ': avancer, ' +
+            Inputs.Reculer +
+            ': reculer, ' +
+            Inputs.Gauche +
+            ': gauche, ' +
+            Inputs.Droite +
+            ': droite) ou \"exit\" pour quitter : '
+        );
 
-        // Convertir la commande en minuscules pour éviter les erreurs de casse
-        const commandeMinuscule = commande.toLowerCase();
+        // Quitter le programme
+        if (commande.toLowerCase() === 'exit') {
+            // Déconnexion
+            console.log("Déconnexion ...");
 
-        socket.emit("commande", commandeMinuscule);
+            setTimeout(() => {
+                console.log("Le Mission Controller est bien déconnecté !");
+            }, 1000);
+
+            rl.close();
+            socket.close();
+            break;
+        }
+
+        socket.emit("commande", commande);
 
         // Attendre la réponse du serveur
         const reponse = await attendreReponse();
 
         // Afficher la réponse
         console.log(reponse);
-
-        if (commandeMinuscule === '9') {
-            // Si la commande est "9", fermer la connexion et terminer le programme
-            console.log("Déconnexion ...");
-
-            setTimeout(() => {
-                console.log("Le Mission Controller est bien déconnecté !");
-            }, 3000);
-
-            rl.close();
-            socket.close();
-            break;
-        }
     }
 }
 
@@ -51,7 +60,7 @@ function attendreReponse() {
 }
 
 socket.on("connect", () => {
-    console.log("Le client MissionController est connecté!");
+    console.log("Le client MissionController est connecté !");
     // Démarrer la boucle en demandant la première commande
     demanderCommande();
 });
