@@ -37,6 +37,11 @@ const Grid = (socket: Socket) => {
         "12",
     ];
 
+    socket.emit("ask-for-planete-size");
+    socket.on("planete-size", (size: { width: number; height: number }) => {
+        console.log("Planete size: ", size);
+    });
+
     const oldPosition = van.state<Position>({ x: 0, y: 0 });
 
     socket.on("rover-position", (positions: Position) => {

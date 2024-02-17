@@ -26,6 +26,14 @@ io.on("connection", (socket: Socket) => {
     console.log("Rover connecté !");
     console.log(planete.obstacles);
 
+    socket.on("ask-for-planete-size", () => {
+        console.log("Demande de taille de la planète par le client ...");
+        socket.emit("planete-size", {
+            width: planete.width,
+            height: planete.height,
+        });
+    });
+
     socket.on("ask-for-position", () => {
         console.log("Demande de position par le client ...");
         socket.emit("rover-position", {
