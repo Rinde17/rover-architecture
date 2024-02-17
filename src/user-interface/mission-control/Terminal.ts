@@ -19,6 +19,7 @@ const Terminal = (socket: Socket) => {
             const reponse = await attendreReponse();
             const responseTrimmed = reponse.replace(/\n{2,}|\r/g, "").trim();
             printOutput([`${inputContent.val}`, responseTrimmed]);
+            socket.emit("ask-for-position");
             inputContent.val = "";
             return;
         }

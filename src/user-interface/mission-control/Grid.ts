@@ -1,7 +1,10 @@
 import { Socket } from "socket.io-client";
 import van from "vanjs-core";
+import { applyRoverPosition } from "../utils";
 
 const { table, tbody, tr, th, td } = van.tags;
+
+export type Position = { x: number; y: number };
 
 const Grid = (socket: Socket) => {
     const xIndex: Array<string> = [
@@ -34,8 +37,11 @@ const Grid = (socket: Socket) => {
         "12",
     ];
 
-    socket.on("rover-position", (positions) => {
-        console.log(positions);
+    const oldPosition = van.state<Position>({ x: 0, y: 0 });
+
+    socket.on("rover-position", (positions: Position) => {
+        applyRoverPosition(positions, oldPosition.oldVal);
+        oldPosition.val = { x: positions.x, y: positions.y };
     });
     return table(
         {},
@@ -45,11 +51,11 @@ const Grid = (socket: Socket) => {
                 tr({ id: index === 0 ? "x-index" : `row-${index}` }, [
                     th({ id: `y-index-${index}` }, yIndexLabel),
                     index === 0
-                        ? xIndex.map((xIndexLabel, index2) =>
+                        ? xIndex.map((_, index2) =>
                               th({ id: `x-index-${index2}` }, xIndex[index2])
                           )
                         : xIndex.map((_, index3) =>
-                              td({ id: `x${index - 1}-y${index3}` })
+                              td({ id: `x${index3}-y${index - 1}` })
                           ),
                 ])
             )
