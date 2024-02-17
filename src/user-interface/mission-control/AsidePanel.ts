@@ -24,11 +24,38 @@ const AsidePanel = (socket: Socket) => {
 
     const changeConnexionIconColor = () => {
         if (socket.connected) {
+            isSocketConnected.val = true;
             connexionIconColor.val = "green";
         } else {
+            isSocketConnected.val = false;
             connexionIconColor.val = "red";
         }
     };
+
+    socket.on("connect-error", (error) => {
+        console.log(error);
+        printOutput(["Erreur de connexion : " + error]);
+    });
+
+    socket.io.once("error", () => {
+        printOutput(["Erreur de connexion : le serveur est injoignable !"]);
+    });
+
+    socket.io.once("reconnect_failed", () => {
+        printOutput(["Toutes les tentatives de reconnexion ont échoué !"]);
+    });
+
+    socket.io.once("reconnect", (reconnexionAttemptCount) => {
+        printOutput([
+            `Reconnexion réussie après ${reconnexionAttemptCount} tentatives !`,
+        ]);
+    });
+
+    socket.io.on("reconnect_attempt", (reconnexionAttemptCount) => {
+        printOutput([
+            `Tentative n°${reconnexionAttemptCount} de reconnexion ...`,
+        ]);
+    });
 
     socket.on("connect", () => {
         changeConnexionIconColor();
@@ -43,20 +70,17 @@ const AsidePanel = (socket: Socket) => {
             printOutput(["Déconnexion en cours ..."]);
             setTimeout(() => {
                 socket.close();
-                isSocketConnected.val = false;
-                changeConnexionIconColor();
             }, 1500);
         } else {
             printOutput(["Connexion en cours ..."]);
             setTimeout(() => {
                 socket.open();
-                isSocketConnected.val = true;
-                changeConnexionIconColor();
             }, 1500);
         }
     };
 
     socket.on("disconnect", (message) => {
+        changeConnexionIconColor();
         printOutput([
             "La connexion avec le Rover à été interrompue !",
             message,

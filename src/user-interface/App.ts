@@ -10,6 +10,8 @@ const { div } = van.tags;
 
 const socket = io("http://localhost:3000", { autoConnect: false });
 
+socket.io.reconnectionAttempts(3);
+
 function App() {
     return [
         div(
