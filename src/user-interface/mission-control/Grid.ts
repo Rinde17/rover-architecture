@@ -42,7 +42,8 @@ const Grid = (socket: Socket) => {
         console.log("Planete size: ", size);
     });
 
-    const oldPosition = van.state<Position>({ x: 0, y: 0 });
+    // Negative initials values to avoid equals positions in case of backend positions set on x: 0, y: 0
+    const oldPosition = van.state<Position>({ x: -1, y: -1 });
 
     socket.on("rover-position", (positions: Position) => {
         applyRoverPosition(positions, oldPosition.oldVal);
