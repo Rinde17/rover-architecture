@@ -13,13 +13,14 @@ const socket = io("http://localhost:3000", { autoConnect: false });
 socket.io.reconnectionAttempts(3);
 
 function App() {
+    socket.emit("ask-for-position");
     return [
         div(
             { id: "mission-control" },
             div({ id: "terminal" }, Terminal(socket)),
             div({ id: "aside-panel" }, AsidePanel(socket))
         ),
-        div({ id: "grid" }, Grid()),
+        div({ id: "grid" }, Grid(socket)),
     ];
 }
 van.add(document.getElementById("app")!, App());

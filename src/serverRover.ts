@@ -22,9 +22,31 @@ planete.generateObstacle(5);
 const rover = new Rover(positionRover, planete, io);
 const interpreter = new Interpreter();
 
+io.on("ask-for-position", (socket: Socket) => {
+    socket.emit("rover-position", {
+        x: positionRover.coordinates.x,
+        y: positionRover.coordinates.y,
+    });
+
+    console.log({
+        x: positionRover.coordinates.x,
+        y: positionRover.coordinates.y,
+    });
+});
+
 io.on("connection", (socket: Socket) => {
     console.log("Rover connecté !");
     console.log(planete.obstacles);
+
+    socket.emit("rover-position", {
+        x: positionRover.coordinates.x,
+        y: positionRover.coordinates.y,
+    });
+
+    console.log({
+        x: positionRover.coordinates.x,
+        y: positionRover.coordinates.y,
+    });
 
     socket.on("commande", (commandes: string) => {
         console.log("Commandes : " + commandes);

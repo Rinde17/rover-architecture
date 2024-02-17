@@ -1,8 +1,9 @@
+import { Socket } from "socket.io-client";
 import van from "vanjs-core";
 
 const { table, tbody, tr, th, td } = van.tags;
 
-const Grid = () => {
+const Grid = (socket: Socket) => {
     const xIndex: Array<string> = [
         "A",
         "B",
@@ -32,6 +33,10 @@ const Grid = () => {
         "11",
         "12",
     ];
+
+    socket.on("rover-position", (positions) => {
+        console.log(positions);
+    });
     return table(
         {},
         tbody(
