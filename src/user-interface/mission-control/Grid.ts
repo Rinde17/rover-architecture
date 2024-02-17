@@ -20,7 +20,6 @@ const Grid = (socket: Socket) => {
         "J",
     ]);
     const yIndex = van.state<Array<string>>([
-        "",
         "1",
         "2",
         "3",
@@ -31,6 +30,7 @@ const Grid = (socket: Socket) => {
         "8",
         "9",
         "10",
+        "",
     ]);
 
     socket.emit("ask-for-planete-size");
@@ -54,21 +54,23 @@ const Grid = (socket: Socket) => {
             {},
             tbody(
                 {},
-                yIndex.val.map((yIndexLabel, index) =>
-                    tr({ id: index === 0 ? "x-index" : `row-${index}` }, [
-                        th({ id: `y-index-${index}` }, yIndexLabel),
-                        index === 0
-                            ? xIndex.val.map((_, index2) =>
-                                  th(
-                                      { id: `x-index-${index2}` },
-                                      xIndex.val[index2]
+                yIndex.val
+                    .reverse()
+                    .map((yIndexLabel, index) =>
+                        tr({ id: index === 0 ? "x-index" : `row-${index}` }, [
+                            th({ id: `y-index-${index}` }, yIndexLabel),
+                            index === 0
+                                ? xIndex.val.map((_, index2) =>
+                                      th(
+                                          { id: `x-index-${index2}` },
+                                          xIndex.val[index2]
+                                      )
                                   )
-                              )
-                            : xIndex.val.map((_, index3) =>
-                                  td({ id: `x${index3}-y${index - 1}` })
-                              ),
-                    ])
-                )
+                                : xIndex.val.map((_, index3) =>
+                                      td({ id: `x${index3}-y${index - 1}` })
+                                  ),
+                        ])
+                    )
             )
         );
 };

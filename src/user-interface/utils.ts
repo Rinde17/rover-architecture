@@ -52,8 +52,8 @@ export const generateGridIndexes = (planeteSize: {
     width: number;
     height: number;
 }): { yIndexArray: Array<string>; xIndexArray: Array<string> } => {
-    const alphabet: string = "abcdefghijklmnopqrstuvwxyz";
-    const alphabetTable: string[] = [""];
+    const alphabet: string = " abcdefghijklmnopqrstuvwxyz";
+    const alphabetTable: string[] = [];
 
     for (let i = 0; i < planeteSize.width; i++) {
         if (i < alphabet.length) {
@@ -65,9 +65,9 @@ export const generateGridIndexes = (planeteSize: {
 
     const numberTable = [];
 
-    for (let j = 1; j <= planeteSize.height; j++) {
+    for (let j = 0; j <= planeteSize.height; j++) {
         numberTable.push(j.toString());
     }
 
-    return { yIndexArray: alphabetTable, xIndexArray: numberTable };
+    return { yIndexArray: alphabetTable.reverse(), xIndexArray: numberTable };
 };
