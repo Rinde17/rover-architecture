@@ -47,3 +47,27 @@ export const oldCellColorReset = (oldPosition: Position) => {
         oldCell.style.setProperty("background-color", "transparent");
     }
 };
+
+export const generateGridIndexes = (planeteSize: {
+    width: number;
+    height: number;
+}): { yIndexArray: Array<string>; xIndexArray: Array<string> } => {
+    const alphabet: string = "abcdefghijklmnopqrstuvwxyz";
+    const alphabetTable: string[] = [""];
+
+    for (let i = 0; i < planeteSize.width; i++) {
+        if (i < alphabet.length) {
+            alphabetTable.push(alphabet[i].toUpperCase());
+        } else {
+            alphabetTable.push(alphabet[i % alphabet.length].toUpperCase());
+        }
+    }
+
+    const numberTable = [];
+
+    for (let j = 1; j <= planeteSize.height; j++) {
+        numberTable.push(j.toString());
+    }
+
+    return { yIndexArray: alphabetTable, xIndexArray: numberTable };
+};

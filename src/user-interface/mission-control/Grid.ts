@@ -1,13 +1,13 @@
 import { Socket } from "socket.io-client";
 import van from "vanjs-core";
-import { applyRoverPosition } from "../utils";
+import { applyRoverPosition, generateGridIndexes } from "../utils";
 
 const { table, tbody, tr, th, td } = van.tags;
 
 export type Position = { x: number; y: number };
 
 const Grid = (socket: Socket) => {
-    const xIndex: Array<string> = [
+    const xIndex = van.state<Array<string>>([
         "A",
         "B",
         "C",
@@ -18,10 +18,8 @@ const Grid = (socket: Socket) => {
         "H",
         "I",
         "J",
-        "K",
-        "L",
-    ];
-    const yIndex: Array<string> = [
+    ]);
+    const yIndex = van.state<Array<string>>([
         "",
         "1",
         "2",
@@ -33,13 +31,15 @@ const Grid = (socket: Socket) => {
         "8",
         "9",
         "10",
-        "11",
-        "12",
-    ];
+    ]);
 
     socket.emit("ask-for-planete-size");
     socket.on("planete-size", (size: { width: number; height: number }) => {
         console.log("Planete size: ", size);
+        const { yIndexArray, xIndexArray } = generateGridIndexes(size);
+        yIndex.val = yIndexArray;
+        xIndex.val = xIndexArray;
+        applyRoverPosition(oldPosition.val, oldPosition.oldVal);
     });
 
     // Negative initials values to avoid equals positions in case of backend positions set on x: 0, y: 0
@@ -49,24 +49,28 @@ const Grid = (socket: Socket) => {
         applyRoverPosition(positions, oldPosition.oldVal);
         oldPosition.val = { x: positions.x, y: positions.y };
     });
-    return table(
-        {},
-        tbody(
+    return () =>
+        table(
             {},
-            yIndex.map((yIndexLabel, index) =>
-                tr({ id: index === 0 ? "x-index" : `row-${index}` }, [
-                    th({ id: `y-index-${index}` }, yIndexLabel),
-                    index === 0
-                        ? xIndex.map((_, index2) =>
-                              th({ id: `x-index-${index2}` }, xIndex[index2])
-                          )
-                        : xIndex.map((_, index3) =>
-                              td({ id: `x${index3}-y${index - 1}` })
-                          ),
-                ])
+            tbody(
+                {},
+                yIndex.val.map((yIndexLabel, index) =>
+                    tr({ id: index === 0 ? "x-index" : `row-${index}` }, [
+                        th({ id: `y-index-${index}` }, yIndexLabel),
+                        index === 0
+                            ? xIndex.val.map((_, index2) =>
+                                  th(
+                                      { id: `x-index-${index2}` },
+                                      xIndex.val[index2]
+                                  )
+                              )
+                            : xIndex.val.map((_, index3) =>
+                                  td({ id: `x${index3}-y${index - 1}` })
+                              ),
+                    ])
+                )
             )
-        )
-    );
+        );
 };
 
 export default Grid;
